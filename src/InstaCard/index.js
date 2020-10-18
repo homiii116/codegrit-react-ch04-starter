@@ -3,20 +3,42 @@ import Header from './Header';
 import Body from './Body';
 import ThemeSwitcher from './ThemeSwitcher';
 import CardSwitcher from './CardSwitcher'
+import { fetchData } from './../CardDataUtils';
 
 // EmptyBoxコンポーネントを実装してローディングイメージを中心に表示しましょう。
 const EmptyBox = () => {
-  
+  const loadingBox = {
+    border: '1px solid #efefef',
+    borderRadius: '5px',
+    width: '614px',
+    height: '614px',
+    display: 'flex',
+    justifyContent: 'center'
+  }
+  return (
+    <article className='insta-card'>
+      <div style={loadingBox}>
+      </div>
+    </article>
+  )
+ 
 }
 
 export default class extends Component {
   state = {
     theme: 'light',
-    chosenId: 1
+    chosenId: 1,
+    isLoading: true
   }
 
   componentDidMount() {
     // データを取得してstateに反映します。
+    fetchData().then((data) => {
+      this.setState({
+        isLoading: false,
+        data
+      })
+    })
   }
 
   onSwitchTheme = (theme, e = null) => {
@@ -33,17 +55,31 @@ export default class extends Component {
     const { 
       theme, 
       chosenId,
+      isLoading,
     } = this.state;
     let instaCardClass = "insta-card";
     if (theme === 'dark') {
       instaCardClass = "insta-card insta-card-dark"
     }
-    let articlePart = (
-      <article className={instaCardClass}>
-        <Header theme={theme} />
-        <Body theme={theme} />
-      </article>
-    );
+    let articlePart;
+    if (isLoading = false) {
+      articlePart = (
+        <article className={instaCardClass}>
+          <Header 
+            theme={theme} 
+            chosenId={chosenId}
+            isLoading={isLoading}
+          />
+          <Body 
+            theme={theme} 
+            chosenId={chosenId}
+            isLoading={isLoading}
+          />
+        </article>
+      );
+    } else {
+      articlePart = <EmptyBox />
+    }    
     return (
       <div className="card-wrapper">
         <div style={{ marginBottom: 7 }}>
