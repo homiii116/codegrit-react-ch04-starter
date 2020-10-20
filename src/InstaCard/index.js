@@ -62,7 +62,7 @@ export default class extends Component {
       instaCardClass = "insta-card insta-card-dark"
     }
     let articlePart;
-    if (isLoading = false) {
+    if (isLoading === false) {
       articlePart = (
         <article className={instaCardClass}>
           <Header 
