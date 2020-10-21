@@ -4,20 +4,23 @@ import Body from './Body';
 import ThemeSwitcher from './ThemeSwitcher';
 import CardSwitcher from './CardSwitcher'
 import { fetchData } from './../CardDataUtils';
+import { ReactComponent as LoadingImage } from './../images/loading.svg';
 
 // EmptyBoxコンポーネントを実装してローディングイメージを中心に表示しましょう。
 const EmptyBox = () => {
   const loadingBox = {
     border: '1px solid #efefef',
     borderRadius: '5px',
-    width: '614px',
-    height: '614px',
+    width: '100%',
+    height: '100%',
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   }
   return (
-    <article className='insta-card'>
+    <article className='insta-card' style={{ height: 600 }}>
       <div style={loadingBox}>
+        <LoadingImage />
       </div>
     </article>
   )
@@ -49,6 +52,9 @@ export default class extends Component {
   onSwitchCard = (id, e = null) => {
     if (e) e.preventDefault();
     // 与えられたidをもとに必要ならデータを再取得します。
+    const {
+      data
+    } = this.state;
   }
 
   render() {
@@ -63,6 +69,8 @@ export default class extends Component {
     }
     let articlePart;
     if (isLoading === false) {
+      articlePart = <EmptyBox />  
+    } else {
       articlePart = (
         <article className={instaCardClass}>
           <Header 
@@ -77,8 +85,6 @@ export default class extends Component {
           />
         </article>
       );
-    } else {
-      articlePart = <EmptyBox />
     }    
     return (
       <div className="card-wrapper">
