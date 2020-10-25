@@ -31,7 +31,8 @@ export default class extends Component {
   state = {
     theme: 'light',
     chosenId: 1,
-    isLoading: true
+    isLoading: true,
+    data: null
   }
 
   componentDidMount() {
@@ -55,6 +56,11 @@ export default class extends Component {
     const {
       data
     } = this.state;
+    if (id === data.id || !id) return;
+      this.setState({
+        chosenId: id,
+        isLoading: true,
+      })
   }
 
   render() {
@@ -62,6 +68,7 @@ export default class extends Component {
       theme, 
       chosenId,
       isLoading,
+      data
     } = this.state;
     let instaCardClass = "insta-card";
     if (theme === 'dark') {
@@ -77,11 +84,13 @@ export default class extends Component {
             theme={theme} 
             chosenId={chosenId}
             isLoading={isLoading}
+            data={data}
           />
           <Body 
             theme={theme} 
             chosenId={chosenId}
             isLoading={isLoading}
+            data={data}
           />
         </article>
       );
