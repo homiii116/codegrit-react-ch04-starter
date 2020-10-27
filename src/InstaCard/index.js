@@ -59,7 +59,7 @@ export default class extends Component {
     if (id === data.id || !id) return;
       this.setState({
         chosenId: id,
-        isLoading: true,
+        isLoading: true
       })
   }
 
