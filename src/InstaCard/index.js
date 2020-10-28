@@ -32,7 +32,8 @@ export default class extends Component {
     theme: 'light',
     chosenId: 1,
     isLoading: true,
-    data: null
+    data: null,
+    loadedOnce: false
   }
 
   componentDidMount() {
@@ -61,6 +62,13 @@ export default class extends Component {
         chosenId: id,
         isLoading: true
       })
+      fetchData(id).then((data) => {
+        this.setState({
+          isLoading: false,
+          data,
+          loadingOnce: true
+        })
+      })
   }
 
   render() {
@@ -68,14 +76,15 @@ export default class extends Component {
       theme, 
       chosenId,
       isLoading,
-      data
+      data,
+      loadedOnce
     } = this.state;
     let instaCardClass = "insta-card";
     if (theme === 'dark') {
       instaCardClass = "insta-card insta-card-dark"
     }
     let articlePart;
-    if (isLoading === false) {
+    if (isLoading && loadedOnce === false) {
       articlePart = <EmptyBox />  
     } else {
       articlePart = (
@@ -83,13 +92,11 @@ export default class extends Component {
           <Header 
             theme={theme} 
             chosenId={chosenId}
-            isLoading={isLoading}
             data={data}
           />
           <Body 
             theme={theme} 
             chosenId={chosenId}
-            isLoading={isLoading}
             data={data}
           />
         </article>

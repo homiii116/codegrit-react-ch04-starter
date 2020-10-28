@@ -6,6 +6,7 @@ export default class extends Component {
   }
   componentDidUpdate(prevProps) {
     // chosenIdが変わったらコメントを空にしましょう。
+    console.log(prevProps);
   }
 
   render() {
