@@ -66,7 +66,7 @@ export default class extends Component {
         this.setState({
           isLoading: false,
           data,
-          loadingOnce: true
+          loadedOnce: true
         })
       })
   }
