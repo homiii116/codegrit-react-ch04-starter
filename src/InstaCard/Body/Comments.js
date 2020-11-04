@@ -7,11 +7,11 @@ const Comments = ({ data }) => {
   return(
     <ul className="comments">
       <Comment
-        username={commentOne.username}
-        comment={commentOne.usercomment} />
+        poster={commentOne.poster}
+        comment={commentOne.body} />
       <Comment
-        username={commentTwo.username}
-        comment={commentTwo.usercomment} />
+        poster={commentTwo.poster}
+        comment={commentTwo.body} />
     </ul>
   );
 }
@@ -19,8 +19,8 @@ const Comments = ({ data }) => {
 Comments.propTypes = {
   data: [
     {
-      username: PropTypes.string.isRequired,
-      usercomment: PropTypes.string.isRequired
+      poster: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired
     }
   ]
 }
@@ -28,12 +28,12 @@ Comments.propTypes = {
 Comments.defaultProps = {
   data: {
     commentOne: {
-      username: "testuser1",
-      usercomment: "This is the insta-card!"
+      poster: "testuser1",
+      body: "This is the insta-card!"
     },
     commentTwo: {
-      username: "testuser2",
-      usercomment: "So cool!"
+      poster: "testuser2",
+      body: "So cool!"
     }
   }
 }
